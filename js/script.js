@@ -130,9 +130,17 @@ function saveScore(initialsValue){
         score: correct
     }
     console.log(scoreObj);
+<<<<<<< HEAD
     window.localStorage.setItem('highScores', JSON.stringify(scoreObj));
 }
 
+=======
+
+    window.localStorage.setItem('highScores', JSON.stringify(scoreObj));
+}
+
+//What happens when you click 'Submit'
+>>>>>>> e6b0d68d7ac1a4f966a4ca36f0e98a1d45b2514c
 submit.addEventListener("click", () => {
         result.style.display = "none";
         score.style.display = "block";
@@ -142,6 +150,16 @@ submit.addEventListener("click", () => {
         saveScore(initialsValue);
 });
 
+<<<<<<< HEAD
+=======
+// //Display message
+// function displayMessage(type, message) {
+//     msgDiv.textContent = message;
+//     msgDiv.setAttribute("class", type);
+// }
+
+//What happens when you click 'View high score'
+>>>>>>> e6b0d68d7ac1a4f966a4ca36f0e98a1d45b2514c
 view.addEventListener("click", () => {
         start__wrapper.style.display = "none";
         console.log(view);
