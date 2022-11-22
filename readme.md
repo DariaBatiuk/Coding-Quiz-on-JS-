@@ -18,7 +18,7 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and scores
 
-#Project picture
+# Project picture
 ![image](https://user-images.githubusercontent.com/83068010/203390781-36d3bc5e-20ed-46de-a82a-0f7ab8c0829d.png)
 
 
