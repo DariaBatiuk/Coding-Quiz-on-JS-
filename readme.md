@@ -22,6 +22,6 @@ THEN I can save my initials and scores
 ![image](https://user-images.githubusercontent.com/83068010/203390781-36d3bc5e-20ed-46de-a82a-0f7ab8c0829d.png)
 
 
-#Link to the deployed project
+# Link to the deployed project
 https://dariabatiuk.github.io/Coding-Quiz-on-JS-/
 
