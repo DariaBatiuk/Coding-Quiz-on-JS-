@@ -38,17 +38,6 @@ let userScore = document.querySelector("#user__score");
 
 let highScoreeList = [];
 
-// function renderScore (){
-//     userScore.innerHTML = "";
-//     userInitials.innerHTML = "";
-
-//     let highScore = highScoreeList[i];
-//     let li = document.createElement("li");
-//     li.textContent = highScore;
-//     li.setAttribute("data-index", i);
-//     li.appendChild
-// }
-
 let countDown = () => {
     if (timer === 0 || timer < 0) {
         clearInterval(interval);
@@ -138,47 +127,46 @@ next_question.addEventListener("click", () => {
 
 
 function saveScore(initialsValue){
+
     var scoreObj = {
         name: initialsValue,
         score: correct
     }
-    console.log(scoreObj);
+    
+    let scores = JSON.parse(window.localStorage.getItem('highScores') || "[]");
+    scores.push(scoreObj);
 
-    window.localStorage.setItem('highScores', JSON.stringify(scoreObj));
+    window.localStorage.setItem('highScores', JSON.stringify(scores));
 }
 
 //What happens when you click 'Submit'
 submit.addEventListener("click", () => {
+        // event.preventDefault();
+
         result.style.display = "none";
         score.style.display = "block";
 
         var initialsValue = initials.value.trim();
-        console.log(initialsValue);
         saveScore(initialsValue);
+        
 });
 
 
-view.addEventListener("click", () => {
+view.addEventListener("click", function(event) {
+        event.preventDefault();
         start__wrapper.style.display = "none";
         console.log(view);
         score.style.display = "block";
 
-        var scores = JSON.parse(window.localStorage.getItem('highScores'));
-        console.log(scores);
-
-        //let newArray = highScoreeList[i];
-
-        var liTags = document.createElement('li');
-        liTags.textContent = scores.score;
+        var scores = JSON.parse(window.localStorage.getItem('highScores') || "[]");
+  
+        userInitials.innerHTML = "";
+        scores.forEach (score => {
+            let liName = document.createElement ("li");
+            liName.textContent = score.name + " : " + score.score;
+            userInitials.appendChild(liName);
+        }); 
         
-        
-        scores = highScoreeList[i];
-        console.log(scores);
-        
-        console.log(liTags.textContent);
-        //liTags.appendChild(scores);
-        highScoreeList.push(liTags.textContent);
-        console.log(highScoreeList);
 
 });
 
