@@ -365,10 +365,3 @@ h1{
     cursor: pointer;
 }
 
-#container #result button:last-child {
-    top: 405px;
-}
-
-#container #result button:hover {
-    background: #e91e3a;
-}*/

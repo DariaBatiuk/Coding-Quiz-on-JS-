@@ -33,9 +33,21 @@ let interval = 0;
 let correct = 0;
 
 let initials = document.querySelector("#initials");
-var msgDiv = document.querySelector("#result__msg");
 let userInitials = document.querySelector("#user__initials");
 let userScore = document.querySelector("#user__score");
+
+let highScoreeList = [];
+
+// function renderScore (){
+//     userScore.innerHTML = "";
+//     userInitials.innerHTML = "";
+
+//     let highScore = highScoreeList[i];
+//     let li = document.createElement("li");
+//     li.textContent = highScore;
+//     li.setAttribute("data-index", i);
+//     li.appendChild
+// }
 
 let countDown = () => {
     if (timer === 0 || timer < 0) {
@@ -84,7 +96,7 @@ choice_que.forEach((choices, choiceNo) => {
             total_correct.innerHTML = `Correct!`;
             total_correct.style.display = "block";
             clearInterval(interval);
-        //disable All Options When User Select An Option
+        
             for (i = 0; i <= 3; i++) {
                 choice_que[i].classList.add("disabled");
             }
@@ -124,23 +136,18 @@ next_question.addEventListener("click", () => {
     }
 })
 
+
 function saveScore(initialsValue){
     var scoreObj = {
         name: initialsValue,
         score: correct
     }
     console.log(scoreObj);
-<<<<<<< HEAD
-    window.localStorage.setItem('highScores', JSON.stringify(scoreObj));
-}
-
-=======
 
     window.localStorage.setItem('highScores', JSON.stringify(scoreObj));
 }
 
 //What happens when you click 'Submit'
->>>>>>> e6b0d68d7ac1a4f966a4ca36f0e98a1d45b2514c
 submit.addEventListener("click", () => {
         result.style.display = "none";
         score.style.display = "block";
@@ -150,25 +157,29 @@ submit.addEventListener("click", () => {
         saveScore(initialsValue);
 });
 
-<<<<<<< HEAD
-=======
-// //Display message
-// function displayMessage(type, message) {
-//     msgDiv.textContent = message;
-//     msgDiv.setAttribute("class", type);
-// }
 
-//What happens when you click 'View high score'
->>>>>>> e6b0d68d7ac1a4f966a4ca36f0e98a1d45b2514c
 view.addEventListener("click", () => {
         start__wrapper.style.display = "none";
         console.log(view);
         score.style.display = "block";
 
         var scores = JSON.parse(window.localStorage.getItem('highScores'));
-        var liTags = document.createElement('li');
-        liTags.textContent = scores.
         console.log(scores);
+
+        //let newArray = highScoreeList[i];
+
+        var liTags = document.createElement('li');
+        liTags.textContent = scores.score;
+        
+        
+        scores = highScoreeList[i];
+        console.log(scores);
+        
+        console.log(liTags.textContent);
+        //liTags.appendChild(scores);
+        highScoreeList.push(liTags.textContent);
+        console.log(highScoreeList);
+
 });
 
 back.addEventListener("click", () => {
