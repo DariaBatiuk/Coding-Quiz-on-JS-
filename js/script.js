@@ -31,6 +31,7 @@ let correct = 0;
 let initials = document.querySelector("#initials");
 let userInitials = document.querySelector("#user__initials");
 let userScore = document.querySelector("#user__score");
+let clearStorage = document.querySelector("#score__clear");
 
 let highScoreeList = [];
 
@@ -38,9 +39,10 @@ let countDown = () => {
   if (timer === 0 || timer < 0) {
     clearInterval(interval);
     //next_question.click();
-		quiz.style.display = "none";
+    quiz.style.display = "none";
     points.innerHTML = `Your final score is ${correct}`;
     result.style.display = "block";
+		time.innerText = 0;
   } else {
     timer--;
     time.innerText = timer;
@@ -56,16 +58,17 @@ let loadData = () => {
   option4.innerText = MCQS[index].choice4;
 
   //    timer start
-  timer = 60;
-	interval = setInterval(countDown, 10000);
+  //timer = 20;
+  //interval = setInterval(countDown, 1000);
 };
 
-loadData();
-
+//loadData();
+//interval = setInterval(countDown, 1000);
 start.addEventListener("click", () => {
   quiz.style.display = "block";
   start__wrapper.style.display = "none";
 
+  timer = 20;
   interval = setInterval(countDown, 1000);
   loadData();
 
@@ -83,7 +86,7 @@ choice_que.forEach((choices, choiceNo) => {
       correct++;
       total_correct.innerHTML = `Correct!`;
       total_correct.style.display = "block";
-      clearInterval(interval);
+      //clearInterval(interval);
 
       for (i = 0; i <= 3; i++) {
         choice_que[i].classList.add("disabled");
@@ -113,6 +116,7 @@ next_question.addEventListener("click", () => {
     index = 0;
 
     clearInterval(interval);
+    time.innerText = 0;
     quiz.style.display = "none";
     points.innerHTML = `Your final score is ${correct}`;
     result.style.display = "block";
@@ -137,26 +141,21 @@ function saveScore(initialsValue) {
 }
 
 //What happens when you click 'Submit'
-submit.addEventListener("click", () => {
-  // event.preventDefault();
+submit.addEventListener("click", (event) => {
+ // event.preventDefault();
 
   result.style.display = "none";
   score.style.display = "block";
 
   var initialsValue = initials.value.trim();
   saveScore(initialsValue);
-});
 
-view.addEventListener("click", function (event) {
-  event.preventDefault();
-  start__wrapper.style.display = "none";
-  console.log(view);
-  score.style.display = "block";
-
-  var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
+	var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
   // scores.score.sort((a, b) => b - a);
 
-  console.log(scores);
+  //console.log(scores);
+  //clearInterval(interval);
+  //time.innerText = 0;
 
   userInitials.innerHTML = "";
   scores.forEach((score) => {
@@ -166,7 +165,40 @@ view.addEventListener("click", function (event) {
   });
 });
 
-back.addEventListener("click", () => {
+view.addEventListener("click", function (event) {
+  //event.preventDefault();
+  start__wrapper.style.display = "none";
+  quiz.style.display = "none";
+  result.style.display = "none";
+  score.style.display = "block";
+
+  var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
+  // scores.score.sort((a, b) => b - a);
+
+  console.log(scores);
+  clearInterval(interval);
+  time.innerText = 0;
+
+  userInitials.innerHTML = "";
+  scores.forEach((score) => {
+    let liName = document.createElement("li");
+    liName.textContent = score.name + " : " + score.score;
+    userInitials.appendChild(liName);
+  });
+});
+
+back.addEventListener("click", (event) => {
+	//event.preventDefault();
   score.style.display = "none";
   start__wrapper.style.display = "flex";
+});
+clearStorage.addEventListener("click", () => {
+  localStorage.clear();
+
+  userInitials.innerHTML = "";
+  scores.forEach((score) => {
+    let liName = document.createElement("li");
+    liName.textContent = score.name + " : " + score.score;
+    userInitials.appendChild(liName);
+  });
 });
