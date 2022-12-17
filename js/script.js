@@ -38,11 +38,15 @@ let highScoreeList = [];
 let countDown = () => {
   if (timer === 0 || timer < 0) {
     clearInterval(interval);
-    //next_question.click();
+    score.style.display = "none";
+    start__wrapper.style.display = "none";
     quiz.style.display = "none";
     points.innerHTML = `Your final score is ${correct}`;
     result.style.display = "block";
-		time.innerText = 0;
+
+    time.innerText = 0;
+    index = 0;
+    initials.value = "";
   } else {
     timer--;
     time.innerText = timer;
@@ -62,13 +66,11 @@ let loadData = () => {
   //interval = setInterval(countDown, 1000);
 };
 
-//loadData();
-//interval = setInterval(countDown, 1000);
 start.addEventListener("click", () => {
   quiz.style.display = "block";
   start__wrapper.style.display = "none";
 
-  timer = 20;
+  timer = 40;
   interval = setInterval(countDown, 1000);
   loadData();
 
@@ -120,6 +122,7 @@ next_question.addEventListener("click", () => {
     quiz.style.display = "none";
     points.innerHTML = `Your final score is ${correct}`;
     result.style.display = "block";
+    initials.value = "";
   }
   for (i = 0; i <= 3; i++) {
     choice_que[i].classList.remove("disabled");
@@ -142,20 +145,13 @@ function saveScore(initialsValue) {
 
 //What happens when you click 'Submit'
 submit.addEventListener("click", (event) => {
- // event.preventDefault();
-
   result.style.display = "none";
   score.style.display = "block";
 
   var initialsValue = initials.value.trim();
   saveScore(initialsValue);
 
-	var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
-  // scores.score.sort((a, b) => b - a);
-
-  //console.log(scores);
-  //clearInterval(interval);
-  //time.innerText = 0;
+  var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
 
   userInitials.innerHTML = "";
   scores.forEach((score) => {
@@ -188,7 +184,7 @@ view.addEventListener("click", function (event) {
 });
 
 back.addEventListener("click", (event) => {
-	//event.preventDefault();
+  //event.preventDefault();
   score.style.display = "none";
   start__wrapper.style.display = "flex";
 });
@@ -196,9 +192,9 @@ clearStorage.addEventListener("click", () => {
   localStorage.clear();
 
   userInitials.innerHTML = "";
-  scores.forEach((score) => {
-    let liName = document.createElement("li");
-    liName.textContent = score.name + " : " + score.score;
-    userInitials.appendChild(liName);
-  });
+  // scores.forEach((score) => {
+  //   let liName = document.createElement("li");
+  //   liName.textContent = score.name + " : " + score.score;
+  //   userInitials.appendChild(liName);
+  // });
 });
