@@ -32,6 +32,7 @@ let initials = document.querySelector("#initials");
 let userInitials = document.querySelector("#user__initials");
 let userScore = document.querySelector("#user__score");
 let clearStorage = document.querySelector("#score__clear");
+let input = document.querySelector("input");
 
 let highScoreeList = [];
 
@@ -80,6 +81,7 @@ start.addEventListener("click", () => {
 
   total_correct.innerHTML = `${(correct = 0)} Out Of ${MCQS.length} Questions`;
 });
+
 
 choice_que.forEach((choices, choiceNo) => {
   choices.addEventListener("click", () => {
@@ -143,6 +145,30 @@ function saveScore(initialsValue) {
   window.localStorage.setItem("highScores", JSON.stringify(scores));
 }
 
+
+
+// input.addEventListener('keyup', function(event) {
+// 		if (event.code === 13) {
+// 				// event.preventDefault();
+// 				// document.querySelector('submit').submit();
+// 				result.style.display = "none";
+// 				score.style.display = "block";
+
+// 				var initialsValue = initials.value.trim();
+// 				saveScore(initialsValue);
+
+// 				var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
+
+// 				userInitials.innerHTML = "";
+// 				scores.forEach((score) => {
+// 					let liName = document.createElement("li");
+// 					liName.textContent = score.name + " : " + score.score;
+// 					userInitials.appendChild(liName);
+// 				});
+// 		}
+// });
+
+
 //What happens when you click 'Submit'
 submit.addEventListener("click", (event) => {
   result.style.display = "none";
@@ -161,6 +187,25 @@ submit.addEventListener("click", (event) => {
   });
 });
 
+initials.onkeyup = function (e) {
+	if(e.keyCode == 13){
+		result.style.display = "none";
+		score.style.display = "block";
+
+		var initialsValue = initials.value.trim();
+		saveScore(initialsValue);
+
+		var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
+
+		userInitials.innerHTML = "";
+		scores.forEach((score) => {
+			let liName = document.createElement("li");
+			liName.textContent = score.name + " : " + score.score;
+			userInitials.appendChild(liName);
+		});
+	}
+}
+
 view.addEventListener("click", function (event) {
   //event.preventDefault();
   start__wrapper.style.display = "none";
@@ -174,6 +219,7 @@ view.addEventListener("click", function (event) {
   console.log(scores);
   clearInterval(interval);
   time.innerText = 0;
+	index = 0;
 
   userInitials.innerHTML = "";
   scores.forEach((score) => {
@@ -192,9 +238,4 @@ clearStorage.addEventListener("click", () => {
   localStorage.clear();
 
   userInitials.innerHTML = "";
-  // scores.forEach((score) => {
-  //   let liName = document.createElement("li");
-  //   liName.textContent = score.name + " : " + score.score;
-  //   userInitials.appendChild(liName);
-  // });
 });
