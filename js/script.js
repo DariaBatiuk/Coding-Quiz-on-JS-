@@ -67,25 +67,31 @@ let loadData = () => {
   //interval = setInterval(countDown, 1000);
 };
 
-start.addEventListener("click", () => {
+start.addEventListener("click", (event) => {
+	event.preventDefault();
   quiz.style.display = "block";
   start__wrapper.style.display = "none";
 
-  timer = 40;
+  timer = 20;
+	index = 0;
   interval = setInterval(countDown, 1000);
   loadData();
 
   choice_que.forEach((removeActive) => {
     removeActive.classList.remove("active");
   });
+	for (i = 0; i <= 3; i++) {
+    choice_que[i].classList.remove("disabled");
+  }
 
   total_correct.innerHTML = `${(correct = 0)} Out Of ${MCQS.length} Questions`;
 });
 
 
 choice_que.forEach((choices, choiceNo) => {
-  choices.addEventListener("click", () => {
-    choices.classList.add("active");
+  choices.addEventListener("click", (event) => {
+    event.preventDefault();
+		choices.classList.add("active");
     if (choiceNo === MCQS[index].answer) {
       correct++;
       total_correct.innerHTML = `Correct!`;
@@ -168,9 +174,29 @@ function saveScore(initialsValue) {
 // 		}
 // });
 
+// initials.onkeyup = function (e) {
+// 	if(e.keyCode == 13){
+// 		//event.preventDefault();
+// 		result.style.display = "none";
+// 		score.style.display = "block";
+
+// 		var initialsValue = initials.value.trim();
+// 		saveScore(initialsValue);
+
+// 		var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
+
+// 		userInitials.innerHTML = "";
+// 		scores.forEach((score) => {
+// 			let liName = document.createElement("li");
+// 			liName.textContent = score.name + " : " + score.score;
+// 			userInitials.appendChild(liName);
+// 		});
+// 	}
+// }
 
 //What happens when you click 'Submit'
 submit.addEventListener("click", (event) => {
+	event.preventDefault();
   result.style.display = "none";
   score.style.display = "block";
 
@@ -187,27 +213,8 @@ submit.addEventListener("click", (event) => {
   });
 });
 
-initials.onkeyup = function (e) {
-	if(e.keyCode == 13){
-		result.style.display = "none";
-		score.style.display = "block";
-
-		var initialsValue = initials.value.trim();
-		saveScore(initialsValue);
-
-		var scores = JSON.parse(window.localStorage.getItem("highScores") || "[]");
-
-		userInitials.innerHTML = "";
-		scores.forEach((score) => {
-			let liName = document.createElement("li");
-			liName.textContent = score.name + " : " + score.score;
-			userInitials.appendChild(liName);
-		});
-	}
-}
-
 view.addEventListener("click", function (event) {
-  //event.preventDefault();
+  event.preventDefault();
   start__wrapper.style.display = "none";
   quiz.style.display = "none";
   result.style.display = "none";
@@ -230,9 +237,10 @@ view.addEventListener("click", function (event) {
 });
 
 back.addEventListener("click", (event) => {
-  //event.preventDefault();
+  event.preventDefault();
   score.style.display = "none";
   start__wrapper.style.display = "flex";
+	index = 0;
 });
 clearStorage.addEventListener("click", () => {
   localStorage.clear();

@@ -282,7 +282,7 @@ h1 {
 #container #result #submit {
   position: relative;
   left: 245px;
-  top: 125px;
+  top: -37px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -428,12 +428,14 @@ h1 {
     font-size: 15px;
   }
   #container #result #submit {
-    left: 25%;
+		margin-top: 25px;
+    left: 0%;
     top: 50%;
   }
   #container #result #initial_form {
     left: 25%;
     top: 45%;
+		margin-top: 25px;
   }
   #container #score .score__record {
     left: 40%;
